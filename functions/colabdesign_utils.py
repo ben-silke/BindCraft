@@ -36,9 +36,11 @@ def binder_hallucination(
     advanced_settings,
     design_paths,
     failure_csv,
-):
-    model_pdb_path = os.path.join(design_paths["Trajectory"], design_name + ".pdb")
+    partial_binder: bool=False,
+    binder_chain: str='',
+    ):
 
+    model_pdb_path = os.path.join(design_paths["Trajectory"], design_name + ".pdb")
     # clear GPU memory for new trajectory
     clear_mem()
 
@@ -56,16 +58,28 @@ def binder_hallucination(
     if target_hotspot_residues == "":
         target_hotspot_residues = None
 
-    af_model.prep_inputs(
-        pdb_filename=starting_pdb,
-        chain=chain,
-        binder_len=length,
-        hotspot=target_hotspot_residues,
-        seed=seed,
-        rm_aa=advanced_settings["omit_AAs"],
-        rm_target_seq=advanced_settings["rm_template_seq_design"],
-        rm_target_sc=advanced_settings["rm_template_sc_design"],
-    )
+    if partial_binder:
+        af_model.prep_inputs(
+            pdb_filename=starting_pdb,
+            chain=chain,
+            binder_chain=binder_chain,
+            hotspot=target_hotspot_residues,
+            seed=seed,
+            rm_aa=advanced_settings["omit_AAs"],
+            rm_target_seq=advanced_settings["rm_template_seq_design"],
+            rm_target_sc=advanced_settings["rm_template_sc_design"],
+        )
+    else:
+        af_model.prep_inputs(
+            pdb_filename=starting_pdb,
+            chain=chain,
+            binder_len=length,
+            hotspot=target_hotspot_residues,
+            seed=seed,
+            rm_aa=advanced_settings["omit_AAs"],
+            rm_target_seq=advanced_settings["rm_template_seq_design"],
+            rm_target_sc=advanced_settings["rm_template_sc_design"],
+        )
 
     ### Update weights based on specified settings
     af_model.opt["weights"].update(

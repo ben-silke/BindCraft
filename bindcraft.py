@@ -141,6 +141,8 @@ while True:
         for trajectory_dir in trajectory_dirs
     )
 
+
+
     if not trajectory_exists:
         print("Starting trajectory: " + design_name)
 
@@ -157,6 +159,8 @@ while True:
             advanced_settings,
             design_paths,
             failure_csv,
+            partial_binder=target_settings.get("partial_binder", False),
+            binder_chain=target_settings.get("binder_chain", ""),
         )
         trajectory_metrics = copy_dict(
             trajectory._tmp["best"]["aux"]["log"]
