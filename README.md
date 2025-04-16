@@ -3,8 +3,6 @@
 
 Simple binder design pipeline using AlphaFold2 backpropagation, MPNN, and PyRosetta. Select your target and let the script do the rest of the work and finish once you have enough designs to order!
 
-[Take the user experience poll!](https://forms.gle/XsGHDCyHtczVbamPA)
-
 [Preprint link for BindCraft](https://www.biorxiv.org/content/10.1101/2024.09.30.615802)
 
 ## Installation
@@ -14,7 +12,7 @@ First you need to clone this repository. Replace **[install_folder]** with the p
 
 The navigate into your install folder using *cd* and run the installation code. BindCraft requires a CUDA-compatible Nvidia graphics card to run. In the *cuda* setting, please specify the CUDA version compatible with your graphics card, for example '11.8'. If unsure, leave blank but it's possible that the installation might select the wrong version, which will lead to errors. In *pkg_manager* specify whether you are using 'mamba' or 'conda', if left blank it will use 'conda' by default. 
 
-Note: This install script will install PyRosetta, which requires a license for commercial purposes.
+Note: This install script will install PyRosetta, which requires a license for commercial purposes. The code requires about 2 Mb of storage space, while the AlphaFold2 weights take up about 5.3 Gb.
 
 `bash install_bindcraft.sh --cuda '12.4' --pkg_manager 'conda'`
 
